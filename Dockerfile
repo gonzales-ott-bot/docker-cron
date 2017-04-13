@@ -1,19 +1,18 @@
-FROM ubuntu:latest
-MAINTAINER docker@ekito.fr
+FROM alpine:latest
 
-# Add crontab file in the cron directory
-ADD crontab /etc/cron.d/hello-cron
+RUN apk add --update bash && rm -rf /var/cache/apk/*
 
-# Give execution rights on the cron job
-RUN chmod 0644 /etc/cron.d/hello-cron
+RUN mkdir -p /var/sky/gonzales/disk-cleanup/bin/
+RUN mkdir -p /var/sky/log/disk-cleanup/
 
-# Create the log file to be able to run tail
-RUN touch /var/log/cron.log
+RUN touch /var/sky/log/disk-cleanup/disk-cleanup.log
+RUN touch /var/sky/log/disk-cleanup/cron.log
 
-#Install Cron
-RUN apt-get update
-RUN apt-get -y install cron
+ADD entrypoint.sh .
+ADD scripts/disk-cleanup.cron /var/spool/cron/crontabs/root
+ADD scripts/disk-cleanup.sh /var/sky/gonzales/disk-cleanup/bin/disk-cleanup.sh
 
+RUN chmod +x /var/sky/gonzales/disk-cleanup/bin/disk-cleanup.sh
+RUN chmod +x ./entrypoint.sh
 
-# Run the command on container startup
-CMD cron && tail -f /var/log/cron.log
+ENTRYPOINT ["h", "entrypoint.sh"]/bin/bas
