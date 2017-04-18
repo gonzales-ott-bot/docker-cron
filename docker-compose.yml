@@ -3,7 +3,7 @@ docker-cron:
   labels:
     io.rancher.container.pull_image: "always"
   environment:
-    cron_cleanup_hours: "*"
+    cron_cleanup_hours: "*/1"
     cron_cleanup_hourstodelete: "1"
     application_name: "disk-cleanup"
     disk_cleanup_directory_list: "uvp"
