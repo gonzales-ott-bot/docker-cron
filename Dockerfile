@@ -15,4 +15,4 @@ ADD scripts/disk-cleanup.sh /var/sky/gonzales/disk-cleanup/bin/disk-cleanup.sh
 RUN chmod +x /var/sky/gonzales/disk-cleanup/bin/disk-cleanup.sh
 RUN chmod +x ./entrypoint.sh
 
-ENTRYPOINT ["h", "entrypoint.sh"]/bin/bas
+ENTRYPOINT ["/bin/bash", "entrypoint.sh"]

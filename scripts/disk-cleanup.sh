@@ -34,11 +34,12 @@ fi
 
 (( mmin = hours * 60 ))
 
+LOGFILE="/var/sky/log/disk-cleanup/disk-cleanup.log"
 for dir in ${disk_cleanup_directory_list}; do
   dir_to_clean="/var/sky/gonzales/${application_name}/${dir}"
   DATE=`date +%F`
-  LOGFILE="/var/sky/log/${application_name}/disk-cleanup.log"
 
+  printf "[%(%F %H:%M:%S)T] disk-cleanup INFO [disk-cleanup] scanning: $dir_to_clean \n" >> $LOGFILE
   if [ -d $dir_to_clean ]; then
     find $dir_to_clean -type f -mmin +${mmin} -delete -exec bash -c 'for f do printf "[%(%F %H:%M:%S)T] disk-cleanup INFO [disk-cleanup] Deleting: %s\n" -1 "$f"; done' _ {} +  >> $LOGFILE
   fi
