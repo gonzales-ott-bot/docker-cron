@@ -1,2 +1,2 @@
 SHELL=/bin/bash
-${cron_cleanup_hours} * * * * /var/sky/gonzales/disk-cleanup/bin/disk-cleanup.sh -h ${cron_cleanup_hourstodelete}
+${cron_cleanup_hours} * * * * /usr/bin/disk-cleanup.sh -h ${cron_cleanup_hourstodelete}
